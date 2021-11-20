@@ -48,17 +48,17 @@
               <td>{{ $item->name }}</td>
               <td>
                 @if ($item->status==="Active")
-                <button type="button" class="btn btn-success"> {{ $item->status }}</button> 
+                <a type="button" class="btn btn-success" href="/dash/product/status/draft/{{ $item->product_id }}"> {{ $item->status }}</a> 
                 @else
-                <button type="button" class="btn btn-secondary"> {{ $item->status }}</button> 
+                <a type="button" class="btn btn-secondary" href="/dash/product/status/active/{{ $item->product_id }}"> {{ $item->status }}</button> 
                 @endif
                 
               </td>
               <td>
-                <button type="button" class="btn btn-warning">Edit </button>
+                <a type="button" class="btn btn-warning" href="/dash/product/edit/{{ $item->product_id }}">Edit </a>
               </td>
               <td>
-                <button type="button" class="btn btn-danger">Delete </button>
+                <button type="button" class="btn btn-danger" onclick="Delete( '{{$item->product_id }}')">Delete </button>
               </td>
             </tr>
           
@@ -86,6 +86,12 @@
 <script>
    var element = document.getElementById("Plist");
   element.classList.add("active");
+  function Delete(product_id){
+    if(confirm("Do you need to delete this?")){
+      window.location.href ="/dash/product/delete/"+product_id;
+    }
+  }
+
 </script>
 <!--scripts-->
 </body>

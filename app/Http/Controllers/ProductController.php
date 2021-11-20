@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use App\Models\Product;
 use App\Models\productsub;
 use App\Models\categery;
@@ -98,6 +99,26 @@ return $data;
         return redirect()->back()->with('alert','exist');
     }
 
+    }
+    public function deleteproduct($product_id){
+        $prod=Product::where('product_id',$product_id);
+        // $image=$prod->image;
+      unlink("product_images/".$prod->first()->image);
+        $prod->delete();
+        
+        
+        return redirect()->back();
+    }
+
+    public function draft($product_id){
+        Product::where('product_id',$product_id)->update(["status"=>"Draft"]);
+        
+        return redirect()->back();
+    }
+    public function Active($product_id){
+        Product::where('product_id',$product_id)->update(["status"=>"Active"]);
+        
+        return redirect()->back();
     }
 
 

@@ -30,8 +30,17 @@ Route::get('/dash/Banner', function () {
 });
 Route::get('/dash/Subcat', function () {
     $data=App\Models\categery::all();
-    return view('Subcat')->with('categeries',$data);;
+    return view('Subcat')->with('categeries',$data);
 });
 Route::post('/dash/product/add',[ProductController::class, 'add']);
 Route::post('/dash/subcat/add',[ProductController::class, 'subCatAdd']);
 Route::post('/dash/subcatselect',[ProductController::class, 'subcatselect'])->name('subcat.select');
+Route::get('/dash/product/status/draft/{product_id}',[ProductController::class, 'draft']);
+Route::get('/dash/product/status/active/{product_id}',[ProductController::class, 'active']);
+Route::get('/dash/product/delete/{product_id}',[ProductController::class, 'deleteProduct']);
+Route::get('/dash/product/edit/{product_id}',function($product_id){
+    $data=App\Models\categery::all();
+    $pdata=App\Models\Product::where('product_id',$product_id)->first();
+   
+    return view('editproduct')->with('pdata',$pdata)->with('categeries',$data);
+});
